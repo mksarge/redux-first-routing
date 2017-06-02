@@ -1,0 +1,6 @@
+# Node and npm
+node_modules
+npm-debug.log
+
+# Compiled output
+lib
