@@ -9,27 +9,31 @@ In the Redux store configuration file:
 
 ```js
 // store.js
-import { routerMiddleware, routerReducer } from 'redux-first-routing';
+import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
+import { routerReducer, routerMiddleware } from 'redux-first-routing';
 
-// create root reducer
 const rootReducer = combineReducers({
   location: routerReducer,
   // other reducers
 });
 
 export function configureStore(history, initialState = {}) {
-  // pass a history object to routerMiddleware
   const middlewares = [
     routerMiddleware(history),
     // other middlewares
   ];
-  
-  const enhancers = [applyMiddleware(...middlewares)];
-  
-  return createStore(
+
+  const enhancers = [
+    applyMiddleware(...middlewares)
+  ];
+
+  const store = createStore(
     rootReducer,
     initialState,
-    composeEnhancers(...enhancers));
+    compose(...enhancers),
+  );
+
+  return store;
 }
 ```
 
@@ -60,5 +64,5 @@ startListener(history, store);
 store.dispatch(push('/about'))
 ```
 
-Learn more:
+You'll need to pair this with a router to render the correct page content based on the store location. See:
 - [Usage with Universal Router](https://github.com/mksarge/redux-first-routing/blob/master/docs/usage-with-universal-router.md)
