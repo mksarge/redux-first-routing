@@ -10,9 +10,11 @@ Achieve client-side routing *the Redux way*:
 
 ## Ideology
 
-This library wraps [`history`](https://github.com/ReactTraining/history) and provides a framework-agnostic API for accomplishing Redux-first routing. For real-world usage, pair it with a compatible client-side routing library (see [Recipies](#recipies) for examples).
+This library wraps [`history`](https://github.com/ReactTraining/history) and provides a framework-agnostic base for accomplishing Redux-first routing. For a complete routing solution, pair it with a compatible client-side routing library (see [Recipies](#recipies) for examples).
 
 ## Recipies
+
+- [Usage with Universal Router](https://github.com/mksarge/redux-first-routing/blob/master/docs/usage-with-universal-router.md)
 
 ## API
 
