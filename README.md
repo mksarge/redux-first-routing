@@ -14,6 +14,7 @@ This library wraps [`history`](https://github.com/ReactTraining/history) and pro
 
 ## Recipies
 
+- [Basic Usage](https://github.com/mksarge/redux-first-routing/blob/master/docs/basic-usage.md)
 - [Usage with Universal Router](https://github.com/mksarge/redux-first-routing/blob/master/docs/usage-with-universal-router.md)
 
 ## API
