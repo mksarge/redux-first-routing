@@ -4,7 +4,7 @@
 
 > Learn more about `universal-router` here: https://github.com/kriasoft/universal-router
 
-Here's is an example of how you might put together a complete routing solution using `redux-first-routing` and `universal-router`:
+Here's how you might put together a complete routing solution using `redux-first-routing` +`universal-router`:
 
 ```js
 // routes.js
@@ -36,7 +36,7 @@ import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import { routerReducer, routerMiddleware } from 'redux-first-routing';
 
 const rootReducer = combineReducers({
-  router: routerReducer,
+  location: routerReducer,
   // other reducers
 });
 
@@ -63,6 +63,7 @@ export function configureStore(history, initialState = {}) {
 ```js
 // index.js
 import { createBrowserHistory } from 'redux-first-routing';
+import configureStore from './store';
 import routes from './routes';
 
 // create history
@@ -84,7 +85,7 @@ function render (pathname) {
   });
 }
 
-// get current location
+// get the current location
 let currentLocation = store.getState().router.pathname
 
 // subscribe to changes in the store
