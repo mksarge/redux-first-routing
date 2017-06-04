@@ -21,9 +21,7 @@ This library wraps [`history`](https://github.com/ReactTraining/history) and pro
 
 #### State Shape
 
-There are dozens of ways to design the state shape of the location data, and this project by nature must choose a single, opinonated implementation.
-
-Here is the current design:
+There are dozens of ways to design the state shape of the location data, and this project by nature must choose a single, opinonated implementation. Here is the current design:
 
 ```js
 {
@@ -31,6 +29,9 @@ Here is the current design:
   location: {
     pathname: '/nested/path/',
     search: '?with=query',
+    queries: {
+      with: 'query',
+    },
     hash: '#and-hash'
   }
 }

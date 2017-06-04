@@ -11,6 +11,7 @@ describe('reducer', () => {
     const expectedResult = {
       pathname: '/',
       search: '',
+      queries: {},
       hash: '',
     };
     const actualResult = routerReducer(undefined, fakeAction);
@@ -20,11 +21,11 @@ describe('reducer', () => {
 
   it('returns the state on action type mismatch', () => {
     const state = {
-      url: '/nested/path?has=query#and-hash',
+      url: '/nested/path?with=query#and-hash',
       hash: 'and-hash',
       search: '',
       queries: {
-        has: 'query',
+        with: 'query',
       },
     };
     const actualResult = routerReducer(state, fakeAction);
@@ -48,6 +49,9 @@ describe('reducer', () => {
     const expectedResult = {
       pathname: '/nested/path',
       search: '?with=query',
+      queries: {
+        with: 'query',
+      },
       hash: '#and-hash',
     };
     expect(actualResult2).to.eql(expectedResult);

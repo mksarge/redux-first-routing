@@ -25,7 +25,8 @@
     "node": ">= 4"
   },
   "dependencies": {
-    "history": "^4.6.1"
+    "history": "^4.6.1",
+    "query-string": "^4.3.4"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
