@@ -1,7 +1,8 @@
-import babel from 'rollup-plugin-babel';
-import uglify from 'rollup-plugin-uglify';
+import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
+import babel from 'rollup-plugin-babel';
+import uglify from 'rollup-plugin-uglify';
 
 const prod = process.env.NODE_ENV === 'production';
 
@@ -9,7 +10,10 @@ const config = {
   format: 'umd',
   moduleName: 'ReduxFirstRouting',
   plugins: [
-    resolve(),
+    replace({ 'process.env.NODE_ENV': JSON.stringify('production') }),
+    resolve({
+      browser: true,
+    }),
     commonjs(),
     babel({
       exclude: 'node_modules/**',
