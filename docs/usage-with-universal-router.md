@@ -2,9 +2,9 @@
 
 # Usage with Universal Router
 
-> Learn more about `universal-router` here: https://github.com/kriasoft/universal-router
+Basic usage with [`universal-router`](https://github.com/kriasoft/universal-router).
 
-Here's how you might put together a complete routing solution using `redux-first-routing` +`universal-router`:
+> View on jsfiddle: https://jsfiddle.net/j21n36sj/
 
 ```js
 // routes.js
