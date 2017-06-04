@@ -1,38 +1,21 @@
 import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify';
+import resolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
+
+const prod = process.env.NODE_ENV === 'production';
 
 const config = {
   format: 'umd',
   moduleName: 'ReduxFirstRouting',
   plugins: [
+    resolve(),
+    commonjs(),
     babel({
       exclude: 'node_modules/**',
     }),
+    ...prod ? [uglify()] : [],
   ],
-  external: [
-    'history/createBrowserHistory',
-    'query-string',
-  ],
-  globals: {
-    'history/createBrowserHistory': 'CreateBrowserHistory',
-    'query-string': 'QueryString',
-  },
 };
-
-if (process.env.NODE_ENV === 'production') {
-  config.plugins.push(
-    uglify({
-      compress: {
-        pure_getters: true,
-        ie8: false,
-      },
-      mangle: {
-        ie8: false,
-      },
-      output: {
-        ie8: false,
-      },
-    }));
-}
 
 export default config;

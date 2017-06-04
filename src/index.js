@@ -1,5 +1,5 @@
 // History API
-export { createBrowserHistory } from 'history/createBrowserHistory';
+export { createBrowserHistory } from './history';
 export { startListener } from './listener';
 
 // Redux API

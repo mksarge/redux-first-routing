@@ -1,4 +1,4 @@
-import queryString from 'query-string';
+import { parse } from 'query-string';
 import { LOCATION_CHANGE } from './constants';
 
 const getInitialState = {
@@ -14,7 +14,7 @@ export const routerReducer = (state = getInitialState, action) => {
       return {
         pathname: action.payload.pathname,
         search: action.payload.search,
-        queries: queryString.parse(action.payload.search),
+        queries: parse(action.payload.search),
         hash: action.payload.hash,
       };
     default:
