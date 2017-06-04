@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "description": "Redux-first routing",
   "main": "lib/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
   "license": "MIT",
   "homepage": "https://github.com/mksarge/redux-first-routing",
   "repository": {
@@ -35,19 +37,26 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.24.1",
     "chai": "^4.0.1",
+    "cross-env": "^5.0.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.2.0",
     "mocha": "^3.4.1",
     "rimraf": "^2.6.1",
+    "rollup": "^0.42.0",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-uglify": "^2.0.1",
     "sinon": "^2.3.2"
   },
   "scripts": {
-    "clean": "rimraf lib dist",
+    "clean": "rimraf lib es dist",
     "lint": "eslint src test",
-    "build": "npm run clean && npm run build:lib",
-    "build:lib": "node_modules/.bin/babel src --out-dir lib",
-    "test": "node_modules/.bin/_mocha --compilers js:babel-core/register test/**/*.spec.js",
-    "prepublish": "npm run lint && npm run test && npm run build"
+    "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "build:umd": "cross-env BABEL_ENV=es NODE_ENV=development rollup -c -i src/index.js -o dist/redux.js",
+    "build:umd:min": "cross-env BABEL_ENV=es NODE_ENV=production rollup -c -i src/index.js -o dist/redux.min.js",
+    "test": "mocha --compilers js:babel-core/register test/**/*.spec.js",
+    "prepublish": "npm run lint && npm run test && npm run clean && npm run build"
   }
 }

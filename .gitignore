@@ -4,3 +4,5 @@ npm-debug.log
 
 # Compiled output
 lib
+es
+dist
