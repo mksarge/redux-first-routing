@@ -26,6 +26,11 @@
   "engines": {
     "node": ">= 4"
   },
+  "files": [
+    "dist",
+    "es",
+    "lib"
+  ],
   "dependencies": {
     "history": "^4.6.1",
     "query-string": "^4.3.4"
