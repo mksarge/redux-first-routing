@@ -1,4 +1,4 @@
-# Redux-First Routing
+# Redux-First Routing [![npm version](https://img.shields.io/npm/v/redux-first-routing.svg?style=flat)](https://www.npmjs.org/package/redux-first-routing)
 
 Achieve client-side routing *the Redux way*:
 
@@ -10,7 +10,23 @@ Achieve client-side routing *the Redux way*:
 
 ## Ideology
 
-This library wraps [`history`](https://github.com/ReactTraining/history) and provides a framework-agnostic base for accomplishing Redux-first routing. For a complete routing solution, pair it with a compatible client-side routing library (see [Recipies](#recipies) for examples).
+This library wraps [`history`](https://github.com/ReactTraining/history) and provides a minimal, framework-agnostic base for accomplishing Redux-first routing. **It does not provide the actual *router* component.**
+
+Instead, you can pair it with a compatible client-side routing library from your framework of choice, to create a complete routing solution (see [Recipies](#recipies) for full examples).
+
+## Installation
+
+Using [npm](https://www.npmjs.org/package/redux-first-routing):
+
+```
+npm install --save redux-first-routing
+```
+
+Or, use the following script tag to access the [latest UMD build](https://unpkg.com/redux-first-routing/dist) on `window.ReduxFirstRouting`:
+
+```html
+<script src="https://unpkg.com/redux-first-routing/dist/redux-first-routing.min.js"></script>
+```
 
 ## Recipies
 
@@ -21,9 +37,11 @@ This library wraps [`history`](https://github.com/ReactTraining/history) and pro
 
 #### State Shape
 
-There are dozens of ways to design the state shape of the location data, and this project by nature must choose a single, opinonated implementation. Here is the current design:
+There are dozens of ways to design the state shape of the location data, and this project must by nature choose a single, opinonated design. Here is the current design:
 
 ```js
+// window.location => www.example.com/nested/path?with=query#and-hash
+
 {
   ..., // other redux state 
   location: {
@@ -35,7 +53,6 @@ There are dozens of ways to design the state shape of the location data, and thi
     hash: '#and-hash'
   }
 }
-// current location: 'www.website.com/nested/path?with=query#and-hash'
 ```
 
 #### Exports
