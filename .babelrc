@@ -1,6 +1,6 @@
 {
   "env": {
-    "development": {
+    "commonjs": {
       "presets": [
         [
           "es2015"

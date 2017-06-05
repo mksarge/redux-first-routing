@@ -64,7 +64,7 @@
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
     "build:umd": "cross-env BABEL_ENV=es NODE_ENV=development rollup -c -i src/index.js -o dist/redux-first-routing.js",
     "build:umd:min": "cross-env BABEL_ENV=es NODE_ENV=production rollup -c -i src/index.js -o dist/redux-first-routing.min.js",
-    "test": "mocha --compilers js:babel-core/register test/**/*.spec.js",
+    "test": "cross-env BABEL_ENV=commonjs mocha --compilers js:babel-core/register test/**/*.spec.js",
     "prepublish": "npm run lint && npm run test && npm run clean && npm run build"
   }
 }
