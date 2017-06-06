@@ -106,9 +106,9 @@ The following libraries provide router components that just focus on the *routin
 
 ## Documentation
 
-- [API](/blob/master/docs/api.md)
+- [API](/docs/api.md)
 - Recipies
-  - [Usage with Universal Router](/blob/master/docs/recipes/usage-with-universal-router.md)
+  - [Usage with Universal Router](/docs/recipes/usage-with-universal-router.md)
 
 ## Contributing
 
