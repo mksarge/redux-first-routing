@@ -1,17 +1,17 @@
 import { parse } from 'query-string';
 import { PUSH, REPLACE, GO, GO_BACK, GO_FORWARD, LOCATION_CHANGE } from './constants';
 
-export const push = (href) => ({
+export const push = href => ({
   type: PUSH,
   payload: href,
 });
 
-export const replace = (href) => ({
+export const replace = href => ({
   type: REPLACE,
   payload: href,
 });
 
-export const go = (index) => ({
+export const go = index => ({
   type: GO,
   payload: index,
 });
