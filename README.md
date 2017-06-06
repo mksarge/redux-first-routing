@@ -1,4 +1,4 @@
-# Redux-First Routing [![npm version](https://img.shields.io/npm/v/redux-first-routing.svg?style=flat)](https://www.npmjs.org/package/redux-first-routing)
+# Redux-First Routing [![npm version](https://img.shields.io/npm/v/redux-first-routing.svg?style=flat)](https://www.npmjs.org/package/redux-first-routing) [![build status](https://api.travis-ci.org/mksarge/redux-first-routing.svg?branch=master)](https://travis-ci.org/mksarge/redux-first-routing/)
 
 Achieve client-side routing *the Redux way*:
 
@@ -12,11 +12,11 @@ Achieve client-side routing *the Redux way*:
 
 This library wraps [`history`](https://github.com/ReactTraining/history) and provides a minimal, framework-agnostic base for accomplishing Redux-first routing. **It does not provide the actual *router* component.**
 
-Instead, you can pair it with a compatible client-side routing library from your framework of choice, to create a complete routing solution (see [Recipies](#recipies) for full examples).
+Instead, you can pair it with a [compatible router](#compatible-routers) to create a complete routing solution. If you're coming from React Router, you might compare this package to [`react-router-redux`](https://github.com/reactjs/react-router-redux).
 
 ## Installation
 
-Using [npm](https://www.npmjs.org/package/redux-first-routing):
+Install the library from [npm](https://www.npmjs.org/package/redux-first-routing):
 
 ```
 npm install --save redux-first-routing
@@ -28,64 +28,87 @@ Or, use the following script tag to access the [latest UMD build](https://unpkg.
 <script src="https://unpkg.com/redux-first-routing/dist/redux-first-routing.min.js"></script>
 ```
 
-## Recipies
+## Usage
 
-- [Basic Usage](https://github.com/mksarge/redux-first-routing/blob/master/docs/basic-usage.md)
-- [Usage with Universal Router](https://github.com/mksarge/redux-first-routing/blob/master/docs/usage-with-universal-router.md)
+#### Basic Usage
 
-## API
+```js
+import { combineReducers, applyMiddleware, createStore } from 'redux'
+import { createBrowserHistory, routerReducer, routerMiddleware, startListener, push } from 'redux-first-routing'
+import { otherReducers } from './reducers'
+
+// Create the history object
+const history = createBrowserHistory()
+
+// Add the reducer, which adds location state to the store
+const rootReducer = combineReducers({
+  ...otherReducers,
+  router: routerReducer // Convention is to use the "router" property
+})
+  
+// Build the middleware, which intercepts navigation actions and calls the corresponding history method
+const middleware = routerMiddleware(history)
+
+// Create the store
+const store = createStore(rootReducer, {}, applyMiddleware(middleware))
+
+// Start the history listener, which automatically dispatches actions to keep the store in sync with the history
+startListener(history, store)
+
+// Now you can read the location from the store!
+let currentLocation = store.getState().router.pathname
+
+// You can also subscribe to changes in the location!
+let unsubscribe = store.subscribe(() => {
+  let previousLocation = currentLocation
+  currentLocation = store.getState().router.pathname
+
+  if (previousLocation !== currentLocation) {
+    console.log(`Location changed from ${previousLocation} to ${currentLocation}`)
+    // Render your application reactively here (optionally using a compatible router)
+  }
+})
+
+// And you can dispatch navigation actions from anywhere!
+store.dispatch(push('/about'))
+```
 
 #### State Shape
 
-There are dozens of ways to design the state shape of the location data, and this project must by nature choose a single, opinonated design. Here is the current design:
+There are dozens of ways to design the state shape of the location data, and this project must by nature choose an opinionated design:
 
 ```js
-// window.location => www.example.com/nested/path?with=query#and-hash
-
+// URL: www.example.com/nested/path?with=query#and-hash
 {
-  ..., // other redux state 
-  location: {
+  router: {
     pathname: '/nested/path/',
     search: '?with=query',
     queries: {
-      with: 'query',
+      with: 'query'
     },
     hash: '#and-hash'
   }
 }
 ```
 
-#### Exports
+> If the current design doesn't fit your needs, feel free to open an issue or fork the project.
 
-Here's a look at the exports in [`src/index.js`](https://github.com/mksarge/redux-first-routing/blob/master/src/index.js):
+#### Compatible Routers
 
-```js
-// History API
-export { createBrowserHistory } from 'history/createBrowserHistory';
-export { startListener } from './listener';
+For a routing library to work seamlessly with `redux-first-routing`, **it must not be heavily coupled with the browser history**. For example, React Router [wraps its own instance of `history`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/modules/BrowserRouter.js#L18-L21), so a more integrated solution like `react-router-redux` is necessary.
 
-// Redux API
-export { PUSH, REPLACE, GO, GO_BACK, GO_FORWARD, LOCATION_CHANGE } from './constants';
-export { push, replace, go, goBack, goForward, locationChange } from './actions';
-export { routerMiddleware } from './middleware';
-export { routerReducer } from './reducer';
-```
+The following libraries provide router components that just focus on the *routing* and/or *rendering* part, making them great matches for `redux-first-routing`:
 
-- **Redux API**
-  - `push()`, `replace()`, `go()`, `goBack()`, `goForward()`
-    - Public action creators used to update the location.
-    - **Use these navigation actions instead of calling the `history` navigation methods directly!**
-  - `PUSH`, `REPLACE`, `GO`, `GO_BACK`, `GO_FORWARD`
-    - Public action types for use in user-defined middleware.
-  - `routerMiddleware(history)`
-    - Intercepts the navigation actions to update the browser history.
-  - `routerReducer`
-    - Adds the location data (`pathname`, `search`, `hash`) to the state tree upon receiving a `LOCATION_CHANGE` action.
-- **History API**
-  - `createBrowserHistory()`
-    - Creates a `history` object.
-  - `startListener(history, store)`
-    - Creates a `history` [listener](https://github.com/ReactTraining/history#listening) that responds to the middleware and external navigation by dispatching a `locationChange` action.
+- [Universal Router](https://github.com/kriasoft/universal-router) (framework-agnostic)
+- [Redux JSON Router](https://github.com/mksarge/redux-json-router) (React)
+
+> For full examples of usage, see [Recipies](#documentation). To add to this list, feel free to send a pull request.
+
+## Documentation
+
+- [API](/blob/master/docs/api.md)
+- Recipies
+  - [Usage with Universal Router](/blob/master/docs/recipes/usage-with-universal-router.md)
 
 ## Contributing
 
