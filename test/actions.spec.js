@@ -59,6 +59,9 @@ describe('action creators', () => {
       payload: {
         pathname: '/nested/path',
         search: '?with=query',
+        queries: {
+          with: 'query',
+        },
         hash: '#and-hash',
       },
     });

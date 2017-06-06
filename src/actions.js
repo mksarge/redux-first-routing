@@ -1,3 +1,4 @@
+import { parse } from 'query-string';
 import { PUSH, REPLACE, GO, GO_BACK, GO_FORWARD, LOCATION_CHANGE } from './constants';
 
 export const push = (href) => ({
@@ -28,6 +29,7 @@ export const locationChange = ({ pathname, search, hash }) => ({
   payload: {
     pathname,
     search,
+    queries: parse(search),
     hash,
   },
 });

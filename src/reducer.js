@@ -1,4 +1,3 @@
-import { parse } from 'query-string';
 import { LOCATION_CHANGE } from './constants';
 
 const getInitialState = {
@@ -14,7 +13,6 @@ export const routerReducer = (state = getInitialState, action) => {
       return {
         ...state,
         ...action.payload,
-        queries: parse(action.payload.search),
       };
     default:
       return state;
