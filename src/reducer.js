@@ -12,10 +12,9 @@ export const routerReducer = (state = getInitialState, action) => {
   switch (action.type) {
     case LOCATION_CHANGE:
       return {
-        pathname: action.payload.pathname,
-        search: action.payload.search,
+        ...state,
+        ...action.payload,
         queries: parse(action.payload.search),
-        hash: action.payload.hash,
       };
     default:
       return state;
