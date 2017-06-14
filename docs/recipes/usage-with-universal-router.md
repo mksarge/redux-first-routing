@@ -4,7 +4,13 @@
 
 Basic usage with [`universal-router`](https://github.com/kriasoft/universal-router).
 
+Follow the discussion: https://github.com/kriasoft/universal-router/issues/99
+
 View the live demo on jsfiddle: https://jsfiddle.net/ytf6q4ru/
+
+```sh
+npm install --save redux-first-routing universal-router
+```
 
 ```js
 /* ---------- routes.js ---------- */

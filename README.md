@@ -6,6 +6,8 @@ Achieve client-side routing *the Redux way*:
 - Update the location by dispatching navigation actions.
 - Let middleware handle the side-effect of history navigation.
 
+> **Learn more: [An Introduction to the Redux-First Routing Model](https://medium.com/@mksarge/an-introduction-to-the-redux-first-routing-model-98926ebf53cb)**
+
 ![Redux-first routing](https://camo.githubusercontent.com/b08b1b78a08e0444ab451f692618d59da977e6a1/687474703a2f2f692e696d6775722e636f6d2f734169566c6b4d2e6a7067)
 
 ## Ideology
@@ -87,28 +89,41 @@ There are dozens of ways to design the state shape of the location data, and thi
       with: 'query'
     },
     hash: '#and-hash'
-  }
+  },
+  ... // other redux state
 }
 ```
 
-> If the current design doesn't fit your needs, feel free to open an issue or fork the project.
+The [`query-string`](https://github.com/sindresorhus/query-string) package is used internally to parse the `search` string into the `queries` object.
 
 #### Compatible Routers
 
-For a routing library to work seamlessly with `redux-first-routing`, **it must not be heavily coupled with the browser history**. For example, React Router [wraps its own instance of `history`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/modules/BrowserRouter.js#L18-L21), so a more integrated solution like `react-router-redux` is necessary.
-
-The following libraries provide router components that just focus on the *routing* and/or *rendering* part, making them great matches for `redux-first-routing`:
+For a router to work seamlessly with `redux-first-routing`, it must not be tightly coupled to the browser history/navigation code. The following libraries meet that criteria by providing router components that focus solely on the *routing* and/or *rendering* part:
 
 - [Universal Router](https://github.com/kriasoft/universal-router) (framework-agnostic)
 - [Redux JSON Router](https://github.com/mksarge/redux-json-router) (React)
 
-> For full examples of usage, see [Recipies](#documentation). To add to this list, feel free to send a pull request.
+> For examples of usage, see [Recipies](#documentation). To add to this list, feel free to send a pull request.
 
 ## Documentation
 
 - [API](/docs/api.md)
 - Recipies
   - [Usage with Universal Router](/docs/recipes/usage-with-universal-router.md)
+  - [Usage with Redux JSON Router](/docs/recipes/usage-with-redux-json-router.md)
+  - [Building your own connected component](/docs/recipes/building-your-own-connected-component.md)
+
+## Credits
+
+The concept of "Redux-first routing" isn't particularly new — everything in this library has existed in one form or another across various other Redux routing libraries and packages. You may find a long list of similar projects (some of which may be classified as Redux-first routing libraries) here:
+
+- https://github.com/markerikson/redux-ecosystem-links/blob/master/routing.md
+
+Notable influences:
+
+- [`react-router-redux`](https://github.com/reactjs/react-router-redux)
+- [`redux-little-router`](https://github.com/FormidableLabs/redux-little-router)
+- [`universal-redux-router`](https://github.com/colinmeinke/universal-redux-router)
 
 ## Contributing
 
