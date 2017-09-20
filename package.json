@@ -1,6 +1,6 @@
 {
   "name": "redux-first-routing",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Redux-first routing",
   "main": "lib/index.js",
   "module": "es/index.js",
