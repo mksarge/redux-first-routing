@@ -7,10 +7,14 @@ import uglify from 'rollup-plugin-uglify';
 const prod = process.env.NODE_ENV === 'production';
 
 const config = {
-  format: 'umd',
-  moduleName: 'ReduxFirstRouting',
+  output: {
+    format: 'umd',
+  },
+  name: 'ReduxFirstRouting',
   plugins: [
-    replace({ 'process.env.NODE_ENV': JSON.stringify('production') }),
+    replace({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
     resolve({
       browser: true,
     }),
